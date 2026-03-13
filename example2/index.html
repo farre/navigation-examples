@@ -1,0 +1,42 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Navigation API intercept demo</title>
+
+<nav>
+  <a href="/spa.html?view=one" id="one">View one</a>
+  <a href="/spa.html?view=two" id="two">View two</a>
+</nav>
+
+<button id="nav3">navigation.navigate("?view=three")</button>
+<button id="back">navigation.back()</button>
+
+<pre id="log"></pre>
+<div id="view"></div£>
+
+<script>
+  function render() {
+    const view = new URL(location.href).searchParams.get("view") || "root";
+    document.querySelector("#view").textContent = "VIEW: " + view;
+  }
+
+  function write(msg) {
+    log.textContent += msg + "\n";
+  }
+
+  render();
+
+  nav3.onclick = () => navigation.navigate("?view=three");
+  back.onclick = () => navigation.back();
+
+  navigation.addEventListener("navigate", (e) => {
+    write(`navigate: type=${e.navigationType} dest=${e.destination?.url}`);
+    e.intercept({
+      async handler() {
+        // simulate async work
+        await Promise.resolve();
+        history.pushState({}, "", new URL(e.destination.url).search);
+        render();
+      }
+    });
+  });
+</script>
