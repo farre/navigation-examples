@@ -1,0 +1,23 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>History shapes</title>
+
+<nav>
+  <a href="page2.html" id="link-page2">Link to page2 (cross-doc push)</a><br>
+  <a href="#frag" id="link-frag">Fragment (same-doc)</a><br>
+</nav>
+
+<button id="assign">location.assign("page2.html")</button>
+<button id="replace">location.replace("page2.html")</button>
+<button id="push">history.pushState({x:1}, "", "?p=1")</button>
+<button id="repstate">history.replaceState({x:2}, "", "?p=2")</button>
+
+<script>
+  assign.onclick = () => location.assign("page2.html");
+  replace.onclick = () => location.replace("page2.html");
+  push.onclick = () => history.pushState({x:1}, "", "?p=1");
+  repstate.onclick = () => history.replaceState({x:2}, "", "?p=2");
+</script>
+
+<h2 id="frag">Fragment target</h2>
+
