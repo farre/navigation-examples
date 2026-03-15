@@ -2,21 +2,28 @@
 <meta charset="utf-8">
 <title>History shapes</title>
 
-<nav>
-  <a href="page.html" id="link-page">Cross document push</a><br>
-  <a href="#frag" id="link-frag">Fragment navigation</a><br>
-</nav>
-
-<button id="assign">location.assign</button>
-<button id="replace">location.replace</button>
+<a href="page.html" id="link-page">Cross document push</a>
+<a href="#frag" id="link-frag">Fragment navigation</a> 
 <button id="push">history.pushState</button>
 <button id="repstate">history.replaceState (bug in diagram)</button>
+<button id="subframe">iframe.src</button>
+<br>
 
 <script>
   assign.onclick = () => location.assign("page.html");
   replace.onclick = () => location.replace("page.html");
   push.onclick = () => history.pushState({x:1}, "", "?p=1");
   repstate.onclick = () => history.replaceState({x:2}, "", "?p=2");
+  subframe.onclick = () => {
+    const frame = document.createElement("iframe");
+    document.body.appendChild(frame);
+    frame.width = "100%";
+    frame.height = "2000px";
+    frame.onload = () => {
+      frame.contentWindow.subframe.remove()
+    }
+    frame.src = "index.html"
+  }
 </script>
 
 <a id="frag"></a>
