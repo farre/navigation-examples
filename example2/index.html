@@ -9,6 +9,7 @@
 
 <button id="nav3">navigation.navigate("?view=three")</button>
 <button id="back">navigation.back()</button>
+<button id="forward">navigation.forward()</button>
 
 <pre id="log"></pre>
 <div id="view"></div£>
@@ -23,6 +24,7 @@
 
   nav3.onclick = () => navigation.navigate("?view=three");
   back.onclick = () => navigation.back();
+  forward.onclick = () => navigation.forward();
 
   navigation.addEventListener("navigate", (e) => {
     e.intercept({
